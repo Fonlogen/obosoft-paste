@@ -24,7 +24,7 @@
 
 /* Navbar */
 .navbar {
-  @apply flex flex-row w-full p-3 h-fit items-center justify-center sm:justify-between border-b;
+  @apply flex flex-row p-3 w-full sm:w-11/12 md:w-11/12 lg:w-10/12 h-fit items-center justify-between;
 }
 
 .paste-textarea {
@@ -50,12 +50,20 @@
 {
 	background-color: #F90;	
   cursor: pointer;
-	/* background-image: -webkit-linear-gradient(45deg,
-	                                          rgba(255, 255, 255, .2) 25%,
-											  transparent 25%,
-											  transparent 50%,
-											  rgba(255, 255, 255, .2) 50%,
-											  rgba(255, 255, 255, .2) 75%,
-											  transparent 75%,
-											  transparent) */
+}
+
+.account-settings {
+  @apply flex flex-col gap-2;
+}
+
+.account-settings > li {
+  @apply flex flex-row justify-between items-center gap-2 py-2 px-2;
+}
+
+.account-settings > li:nth-child(even) {
+  @apply bg-gray-50;
+}
+
+.account-pastes {
+  @apply flex flex-col grow gap-2 sm:overflow-y-auto ;
 }
