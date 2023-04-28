@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage'
 import AccountPage from './pages/AccountPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import PastePage from './pages/PastePage'
 
 
 import { useState, useEffect } from 'react'
@@ -46,6 +47,7 @@ function App() {
           <Route path="dashboard" element={<AccountPage account={userAccount} setAccount={setUserAccount} />} />
           <Route path="login" element={<Login account={userAccount} setAccount={setUserAccount} />} />
           <Route path="register" element={<Register account={userAccount} setAccount={setUserAccount} />} />
+          <Route path='/paste/:pasteID' element={<PastePage />}></Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
