@@ -11,7 +11,22 @@ client
 
 function HomePage(props) {
 
+  const copyShareLink = (link) => {
+    navigator.clipboard.writeText(link).then(() => {
+      alert("Paste link copied in clipboard");
+      //console.log('Content copied to clipboard');
+      /* Resolved - text copied to clipboard successfully */
+    },() => {
+      //console.error('Failed to copy');
+      /* Rejected - text failed to copy to the clipboard */
+    });
+  }
+
   const createPaste = (title, content) => {
+    
+    if (!title) return;
+    if (!content) return;
+
     let owner = 'guest';
 
     if (props.account) {
@@ -26,24 +41,37 @@ function HomePage(props) {
       "-" +
       currentdate.getDate();
 
+    let uuid = ID.unique();
+
     const promise = databases.createDocument(
       "6441d733de9b8ae7a88b",
       "6447132ebfc2884a8f60",
-      ID.unique(),
+      uuid,
       {
         name: title,
         content: content,
         owner: owner,
+        owner_displayname: props.account.name,
         createdAt: datetime,
       });
 
     promise.then(function (response) {
-      console.log(response);
+      //console.log(response);
+      let link = window.location.origin + "/paste/" + response.$id
+      copyShareLink(link);
+      window.location.href = link
     }, function (error) {
       console.log(error);
     });
+
+    clearInputs()
   };
   
+  const clearInputs = () => {
+    document.querySelector('input[type="text"]').value = '';
+    document.querySelector('textarea').value = '';  
+  }
+
   return (
     <div className="w-full grow flex flex-col sm:justify-center sm:items-center">
       <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-full sm:border-x p-3 flex flex-col gap-4">
@@ -61,8 +89,7 @@ function HomePage(props) {
             className="text-orange-500 cursor-pointer hover:text-orange-700 font-normal hover:underline active:text-orange-400 rounded-xl"
             onClick={() => {
               // Clear title and content
-              document.querySelector('input[type="text"]').value = '';
-              document.querySelector('textarea').value = '';  
+              clearInputs();
             }}
             >
               Delete everything

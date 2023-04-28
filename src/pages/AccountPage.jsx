@@ -50,6 +50,13 @@ function AccountPage() {
 
 	const [pastes, setPastes] = useState(null)
 
+  const deletePaste = (key) => {
+    let newPastes = pastes;
+    let pasteToRemove = newPastes.splice(key, 1);
+    console.log(newPastes);
+    setPastes(newPastes)
+  }
+
 	useEffect(() => {
 
 		const promise = 
@@ -57,7 +64,7 @@ function AccountPage() {
 
 		promise.then(function (response) {
 			console.log(response)
-			setPastes(response)
+			setPastes(response.documents)
 		}, function (error) {
 			setPastes(null)
 		});
@@ -106,6 +113,10 @@ function AccountPage() {
 							<span>Account type</span>
 							<span>{accountPrefs.accountType}</span>
 						</li>
+            <li>
+							<span>Account ID</span>
+							<span>{userAccount.$id || '0'}</span>
+						</li>
 					</ul>
 					<a 
 						href="#"
@@ -122,16 +133,16 @@ function AccountPage() {
 							pastes === null ? (
 								<p className="text-xl">Loading...</p>
 							) :
-							pastes.documents.length === 0  ? (
+							pastes.length === 0  ? (
 								<div className='flex flex-col self-center my-auto justify-center items-center'>
 									<p className="sm:text-xl md:text-2xl lg:text-3xl text-gray-600 ">You haven't created any paste yet.</p>
 									<a className="sm:text-lg md:text-xl lg:text-2xl text-orange-500 cursor-pointer hover:text-orange-700 font-normal hover:underline active:text-orange-400 rounded-xl" href="/">Create one now!</a>
 								</div>
 							) : (
-								pastes.documents.map((paste) => {
+								pastes.map((paste, idx) => {
 									if (paste.owner !== userAccount.$id) return null
 									return (
-										<Paste key={paste.$id} name={paste.name} content={paste.content} createdAt={paste.createdAt} />
+										<Paste key={paste.$id} idx={idx} delete={deletePaste} id={paste.$id} name={paste.name} content={paste.content} createdAt={paste.createdAt} />
 									)
 								})
 							)

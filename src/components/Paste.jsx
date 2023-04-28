@@ -1,5 +1,20 @@
 /* eslint-disable react/prop-types */
+
+import { useRef } from 'react'
+
 function Paste(props) {
+
+  const pasteID = useRef(props.id);
+
+  const copyShareLink = () => {
+    navigator.clipboard.writeText(window.location.origin + "/paste/" + pasteID.current).then(() => {
+      //console.log('Content copied to clipboard');
+      /* Resolved - text copied to clipboard successfully */
+    },() => {
+      //console.error('Failed to copy');
+      /* Rejected - text failed to copy to the clipboard */
+    });
+  }
 
 	let contentTrimmed = props.content // Trim content if it's longer then 100 chars
 	if (contentTrimmed.length > 35) {
@@ -35,21 +50,34 @@ function Paste(props) {
 						</a>
 
 						{/* Share paste */}
-						<a className="cursor-pointer">
+						<a 
+              className="cursor-pointer"
+              onClick={() => {
+                copyShareLink();
+              }}
+            >
 							<span className="material-symbols-outlined text-white bg-green-400 p-1 rounded-lg">
 								share
 							</span>
 						</a>
 
 						{/* View paste */}
-						<a className="cursor-pointer">
-							<span className="material-symbols-outlined text-white bg-orange-400 p-1 rounded-lg">
+						<a 
+              className="cursor-pointer"
+              href={"/paste/" + pasteID.current}
+            >
+							<span className="pointer-events-none material-symbols-outlined text-white bg-orange-400 p-1 rounded-lg">
 								visibility
 							</span>
 						</a>
 
 						{/* Delete paste */}
-						<a className="cursor-pointer">
+						<a 
+              className="cursor-pointer"
+              onClick={() => {
+                props.delete(props.idx);
+              }}
+            >
 							<span className="material-symbols-outlined text-white bg-red-400 p-1 rounded-lg">
 								delete
 							</span>
