@@ -67,3 +67,7 @@
 .account-pastes {
   @apply flex flex-col grow gap-2 sm:overflow-y-auto ;
 }
+
+.dialog-button {
+  @apply px-5 py-1 text-lg text-white rounded-lg cursor-pointer;
+}
