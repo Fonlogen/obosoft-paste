@@ -2,6 +2,8 @@
 
 import { useRef } from 'react'
 
+import Dialog from './Dialog';
+
 function Paste(props) {
 
   const pasteID = useRef(props.id);
@@ -25,8 +27,12 @@ function Paste(props) {
 	if (nameTrimmed.length > 35) {
 		nameTrimmed = nameTrimmed.substring(0, 35) + '...'
 	}
+
+  let dateTrimmed = props.createdAt
+  dateTrimmed = dateTrimmed.slice(0, 10).replaceAll('-','/');
 	
   return (
+    <>
     <div className="w-full h-fit border-b rounded-lg p-2 flex flex-col overflow-x-hidden">
 			<div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between">
 				{/* Paste info */}
@@ -34,7 +40,7 @@ function Paste(props) {
 					<span className="font-normal text-xl">
 						{nameTrimmed}
 					</span>
-					<span className="font-thin text-gray-500 h-fit overflow-x-hidden">
+					<span className="font-thin text-gray-700 h-fit overflow-x-hidden">
 						{contentTrimmed}
 					</span>
 				</div>
@@ -44,7 +50,7 @@ function Paste(props) {
 					<div className="flex flex-row gap-2 items-start">
 						{/* Edit paste */}
 						<a className="cursor-pointer">
-							<span className="material-symbols-outlined text-white bg-blue-400 p-1 rounded-lg">
+							<span className="material-symbols-outlined text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-800 p-1 rounded-lg">
 								edit
 							</span>
 						</a>
@@ -56,7 +62,7 @@ function Paste(props) {
                 copyShareLink();
               }}
             >
-							<span className="material-symbols-outlined text-white bg-green-400 p-1 rounded-lg">
+							<span className="material-symbols-outlined text-white bg-green-500 hover:bg-green-600 active:bg-green-800 p-1 rounded-lg">
 								share
 							</span>
 						</a>
@@ -66,7 +72,7 @@ function Paste(props) {
               className="cursor-pointer"
               href={"/paste/" + pasteID.current}
             >
-							<span className="pointer-events-none material-symbols-outlined text-white bg-orange-400 p-1 rounded-lg">
+							<span className="material-symbols-outlined text-white bg-orange-500 hover:bg-orange-600 active:bg-orange-800 p-1 rounded-lg">
 								visibility
 							</span>
 						</a>
@@ -75,22 +81,23 @@ function Paste(props) {
 						<a 
               className="cursor-pointer"
               onClick={() => {
-                props.delete(props.idx);
+                props.delete(pasteID.current)
               }}
             >
-							<span className="material-symbols-outlined text-white bg-red-400 p-1 rounded-lg">
+							<span className="material-symbols-outlined text-white bg-red-500 hover:bg-red-600 active:bg-red-800 p-1 rounded-lg">
 								delete
 							</span>
 						</a>
 					</div>
 
 					{/* Paste creation date */}
-					<span className="font-thin text-sm text-center text-gray-400 h-fit">
-						{props.createdAt}
+					<span className="font-thin text-sm text-center text-gray-600 h-fit">
+						{dateTrimmed}
 					</span>
 				</div>
 			</div>
     </div>
+    </>
   )
 }
 
