@@ -3,10 +3,12 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Paste from '../components/Paste'
+import Dialog from '../components/Dialog'
 
 import { Account, Client, Databases, Query } from 'appwrite' 
+
 
 const client = new Client();
 
@@ -24,6 +26,27 @@ function AccountPage() {
 	const [accountPrefs, setAccountPrefs] = useState({
 		accountType: 'Free',
 	})
+
+  const [showDialog, setShowDialog] = useState(false)
+  const pasteToDelete = useRef(0);
+
+  const deletePaste = () => {
+    const promise = 
+    databases.deleteDocument('6441d733de9b8ae7a88b', '6447132ebfc2884a8f60', pasteToDelete.current);
+
+    promise.then(function (response) {
+      window.location.reload();
+    }, function (error) {
+      console.log(error); // Failure
+    });
+  }
+
+  const deleteDialog = (paste_id) => {
+    pasteToDelete.current = paste_id;
+    console.log(pasteToDelete.current)
+    setShowDialog(true)
+  }
+
 
 	useEffect(() => {
 		const promise = account.get();
@@ -50,25 +73,22 @@ function AccountPage() {
 
 	const [pastes, setPastes] = useState(null)
 
-  const deletePaste = (key) => {
-    let newPastes = pastes;
-    let pasteToRemove = newPastes.splice(key, 1);
-    console.log(newPastes);
-    setPastes(newPastes)
-  }
-
 	useEffect(() => {
+    const promise = 
+    databases.listDocuments("6441d733de9b8ae7a88b", "6447132ebfc2884a8f60",
+    
+      [
+        Query.equal("owner", userAccount.$id)
+      ]
+    );
 
-		const promise = 
-			databases.listDocuments("6441d733de9b8ae7a88b", "6447132ebfc2884a8f60");
-
-		promise.then(function (response) {
-			console.log(response)
-			setPastes(response.documents)
-		}, function (error) {
-			setPastes(null)
-		});
-	}, [])
+    promise.then(function (response) {
+      // console.log('response')
+      setPastes(response.documents)
+    }, function (error) {
+      setPastes(false)
+    });
+	}, [userAccount])
 
 	const logout = () => {
 		const promise = account.deleteSession('current');
@@ -83,7 +103,25 @@ function AccountPage() {
 	}
 
 	return (
-		<div className="w-full overflow-y-auto sm:overflow-y-none sm:grow flex flex-col sm:justify-center sm:items-center">
+    <>
+    {
+      showDialog &&
+      (
+        <Dialog 
+          title='Confirm action' 
+          description='Are you sure you want to permanently delete this paste? This action is irreversible' 
+          confirmCallback={() => {
+            deletePaste();
+          }}
+          confirmButton={true}
+          cancelButton={true}
+          cancelCallback={() => {
+            setShowDialog(false)
+          }}
+        />
+      )
+    }
+		<div className="w-full overflow-y-auto sm:overflow-y-none sm:grow flex flex-col sm:justify-center sm:items-center grow">
 			<div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-full sm:border-x p-3 flex flex-col gap-4">
 				{/* Account settings area */}
 				<div className="flex flex-col gap-2">
@@ -133,16 +171,16 @@ function AccountPage() {
 							pastes === null ? (
 								<p className="text-xl">Loading...</p>
 							) :
-							pastes.length === 0  ? (
-								<div className='flex flex-col self-center my-auto justify-center items-center'>
-									<p className="sm:text-xl md:text-2xl lg:text-3xl text-gray-600 ">You haven't created any paste yet.</p>
-									<a className="sm:text-lg md:text-xl lg:text-2xl text-orange-500 cursor-pointer hover:text-orange-700 font-normal hover:underline active:text-orange-400 rounded-xl" href="/">Create one now!</a>
+							pastes.length === 0 || pastes === false ? (
+								<div className='flex flex-col grow self-center my-auto justify-center items-center'>
+									<p className="sm:text-lg md:text-xl lg:text-2xl text-gray-600 ">You haven't created any paste yet.</p>
+									<a className="sm:text-md md:text-lg lg:text-xl text-orange-500 cursor-pointer hover:text-orange-700 font-normal hover:underline active:text-orange-400 rounded-xl" href="/">Create one now!</a>
 								</div>
 							) : (
 								pastes.map((paste, idx) => {
-									if (paste.owner !== userAccount.$id) return null
+									// if (paste.owner !== userAccount.$id) return null
 									return (
-										<Paste key={paste.$id} idx={idx} delete={deletePaste} id={paste.$id} name={paste.name} content={paste.content} createdAt={paste.createdAt} />
+										<Paste key={paste.$id} idx={idx} delete={deleteDialog} id={paste.$id} name={paste.name} content={paste.content} createdAt={paste.createdAt} />
 									)
 								})
 							)
@@ -151,6 +189,7 @@ function AccountPage() {
 				</div>
 			</div>
 		</div>
+    </>
 	)
 }
 
