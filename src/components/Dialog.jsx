@@ -11,9 +11,9 @@ function Dialog(props) {
   return (
     <div className="flex absolute z-10 w-full h-full bg-black/50 justify-center">
       <div className="flex flex-col w-full h-full items-center justify-center">
-        <div className="flex relative margin-x-auto flex-col bg-white rounded-xl w-10/12 h-fit px-3 py-2 gap-1">
+        <div className="flex relative margin-x-auto flex-col bg-white rounded-xl w-10/12 h-fit min-h-[200px] px-3 py-2 gap-1">
           <span className="font-bold text-2xl border-b pb-1">{props.title || "Loading..."}</span>
-          <span className="text-lg">{props.description || "Loading..."}</span>
+          <span className="text-lg grow">{props.description || "Loading..."}</span>
           <div className="flex flex-row items-center justify-end py-1 gap-2">
             {
               deleteButton.current && 
