@@ -9,6 +9,7 @@ import AccountPage from './pages/AccountPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import PastePage from './pages/PastePage'
+// import EditPaste from './pages/EditPaste' // Need to implement in future
 
 
 import { useState, useEffect } from 'react'
@@ -47,7 +48,8 @@ function App() {
           <Route path="dashboard" element={<AccountPage account={userAccount} setAccount={setUserAccount} />} />
           <Route path="login" element={<Login account={userAccount} setAccount={setUserAccount} />} />
           <Route path="register" element={<Register account={userAccount} setAccount={setUserAccount} />} />
-          <Route path='/paste/:pasteID' element={<PastePage />}></Route>
+          <Route path='/view/:pasteID' element={<PastePage />}></Route>
+          {/* <Route path='/edit/:pasteID' element={<EditPaste />}></Route> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
