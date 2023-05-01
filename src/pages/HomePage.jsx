@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Client, Databases, ID } from "appwrite";
+import Dialog from "../components/Dialog";
+
+import { useState, useRef } from 'react'
 
 const client = new Client();
 
@@ -11,19 +14,15 @@ client
 
 function HomePage(props) {
 
-  const copyShareLink = (link) => {
-    navigator.clipboard.writeText(link).then(() => {
-      alert("Paste link copied in clipboard");
-      //console.log('Content copied to clipboard');
-      /* Resolved - text copied to clipboard successfully */
-    },() => {
-      //console.error('Failed to copy');
-      /* Rejected - text failed to copy to the clipboard */
-    });
-  }
+  const [guestDialog, showGuestDialog] = useState(false)
+
+  const dialogProps = useRef({})
 
   const createPaste = (title, content) => {
     
+    title = dialogProps.current.title;
+    content = dialogProps.current.content;
+
     if (!title) return;
     if (!content) return;
 
@@ -57,7 +56,7 @@ function HomePage(props) {
 
     promise.then(function (response) {
       //console.log(response);
-      let link = window.location.origin + "/paste/" + response.$id
+      let link = window.location.origin + "/view/" + response.$id
       copyShareLink(link);
       window.location.href = link
     }, function (error) {
@@ -66,6 +65,36 @@ function HomePage(props) {
 
     clearInputs()
   };
+
+  const guestCancelCallback = () => {
+    showGuestDialog(false)
+  }
+
+  const guestConfirmCallback = (title, content) => {
+    console.log(title)
+    createPaste(title, content)
+  }
+
+  const copyShareLink = (link) => {
+    navigator.clipboard.writeText(link).then(() => {
+      alert("Paste link copied in clipboard");
+      //console.log('Content copied to clipboard');
+      /* Resolved - text copied to clipboard successfully */
+    },() => {
+      //console.error('Failed to copy');
+      /* Rejected - text failed to copy to the clipboard */
+    });
+  }
+
+  const confirmCreatePaste = (title, content) => {
+    if (!props.account) {
+      showGuestDialog(true)
+      return
+    }
+    createPaste(title, content)
+  }
+
+  
   
   const clearInputs = () => {
     document.querySelector('input[type="text"]').value = '';
@@ -73,6 +102,19 @@ function HomePage(props) {
   }
 
   return (
+    <>
+      {
+        guestDialog &&
+        (
+          <Dialog 
+            confirmButton={true} cancelButton={true} okButton={false}
+            title='Confirm action' 
+            description='Are you sure you want to publish this paste as Guest? Remember that in the future you will not be able to modify or remove it' 
+            confirmCallback={guestConfirmCallback}
+            cancelCallback={guestCancelCallback}
+          />
+        )
+      }
     <div className="w-full grow flex flex-col sm:justify-center sm:items-center">
       <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-full sm:border-x p-3 flex flex-col gap-4">
         <input 
@@ -105,14 +147,18 @@ function HomePage(props) {
               const title = document.querySelector('input[type="text"]').value;
               const content = document.querySelector('textarea').value;
 
+              dialogProps.current.title = title;
+              dialogProps.current.content = content;
+
               // Create paste
-              createPaste(title, content);
+              confirmCreatePaste(title, content);
             }}
           ></input>
 
         </div>
       </div>
     </div>
+    </>
   )
 }
 
