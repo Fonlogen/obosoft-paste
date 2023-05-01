@@ -9,7 +9,7 @@ function Paste(props) {
   const pasteID = useRef(props.id);
 
   const copyShareLink = () => {
-    navigator.clipboard.writeText(window.location.origin + "/paste/" + pasteID.current).then(() => {
+    navigator.clipboard.writeText(window.location.origin + "/view/" + pasteID.current).then(() => {
       //console.log('Content copied to clipboard');
       /* Resolved - text copied to clipboard successfully */
     },() => {
@@ -49,11 +49,14 @@ function Paste(props) {
 				<div className="flex flex-row sm:flex-col justify-between items-end sm:justify-center sm:gap-1">
 					<div className="flex flex-row gap-2 items-start">
 						{/* Edit paste */}
-						<a className="cursor-pointer">
+						{/* <a 
+              className="cursor-pointer"
+              href={'/edit/' + pasteID.current}
+            >
 							<span className="material-symbols-outlined text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-800 p-1 rounded-lg">
 								edit
 							</span>
-						</a>
+						</a> */}
 
 						{/* Share paste */}
 						<a 
@@ -70,7 +73,7 @@ function Paste(props) {
 						{/* View paste */}
 						<a 
               className="cursor-pointer"
-              href={"/paste/" + pasteID.current}
+              href={"/view/" + pasteID.current}
             >
 							<span className="material-symbols-outlined text-white bg-orange-500 hover:bg-orange-600 active:bg-orange-800 p-1 rounded-lg">
 								visibility
