@@ -71,3 +71,23 @@
 .dialog-button {
   @apply px-5 py-1 text-lg text-white rounded-lg cursor-pointer;
 }
+
+.w-md-editor-text-pre > code,
+.w-md-editor-text-input, w-md-editor-area {
+  @apply text-xl !important;
+}
+
+.w-md-editor-text {
+  @apply py-0 !important;
+  @apply px-3 !important;
+}
+
+.code-line {
+  @apply text-xl !important;
+}
+
+.wmde-markdown-var, .w-md-editor, .w-md-editor-show-edit {
+  box-shadow: none !important;
+  @apply py-0 !important;
+  @apply border-b !important;
+}
