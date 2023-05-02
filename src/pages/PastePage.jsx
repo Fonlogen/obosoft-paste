@@ -40,8 +40,8 @@ function PastePage() {
   }, [])
 
   return (
-    <div className="overflow-y-auto w-full grow flex flex-col sm:items-center h-full">
-      <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-fit sm:border-x p-3 flex flex-col sm:flex-row sm:justify-between sm:gap-4 gap-2 border-b">
+    <div className="overflow-y-auto w-full grow flex flex-col sm:items-center h-full" data-color-mode="light">
+      <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-fit sm:border-x p-3 flex flex-col sm:flex-row sm:justify-between sm:gap-4 gap-2 border-b" data-color-mode="light">
         <span className='flex text-2xl font-bold text-center items-center grow'>
           {
             document.name || "Loading..."
