@@ -41,7 +41,7 @@ function Register(props) {
 						<label htmlFor="passwordconfirm" className="px-2">Confirm Password</label>
 						<input
 							className={"border-b border-gray-500 focus:outline-none focus:border-orange-400 font-thin text-lg px-2 py-1 " + (props.theme === 'dark' ? 'bg-neutral-900' : 'bg-white')}
-							type="passwordconfirm" name="passwordconfirm" id="passwordconfirm" 
+							type="password" name="passwordconfirm" id="passwordconfirm" 
 						/>
 					</div>
 					<div className="flex flex-col justify-between">
@@ -50,8 +50,8 @@ function Register(props) {
 							onClick={() => {
 								const client = new Client()
 								client
-									.setEndpoint('https://obosoft.appwrite.io/v1')
-									.setProject('6441cd015b58133de8d7')
+									.setEndpoint('https://obosoft.it:8056/v1')
+									.setProject('6441c6e7d6448edcc109')
 								const account = new Account(client)
 								account.create(
 									ID.unique(),
