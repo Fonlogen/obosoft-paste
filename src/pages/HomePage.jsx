@@ -4,6 +4,8 @@ import Dialog from "../components/Dialog";
 
 import { useState, useRef } from 'react'
 
+import MDEditor from "@uiw/react-md-editor";
+
 const client = new Client();
 
 const databases = new Databases(client);
@@ -15,6 +17,8 @@ client
 function HomePage(props) {
 
   const [guestDialog, showGuestDialog] = useState(false)
+
+  const [value, setValue] = useState('');
 
   const dialogProps = useRef({})
 
@@ -38,7 +42,13 @@ function HomePage(props) {
       "-" +
       (currentdate.getMonth() + 1) +
       "-" +
-      currentdate.getDate();
+      currentdate.getDate() +
+      "T" + 
+      currentdate.getHours() + ":" +
+      currentdate.getMinutes() + ":" +
+      currentdate.getSeconds() + ":" +
+      currentdate.getMilliseconds();
+      
 
     let uuid = ID.unique();
 
@@ -123,7 +133,21 @@ function HomePage(props) {
           placeholder="New paste..." 
           maxLength={250} />
         {/* Create non resizable text area */}
-        <textarea className="paste-textarea" placeholder="Your paste..." />
+
+        <MDEditor 
+        textareaProps={{
+          placeholder: "Your paste..."
+        }}
+          preview="edit" 
+          value={value} 
+          onChange={setValue} 
+          hideToolbar={true} 
+          autoFocus={true} 
+          height={""}
+          visibleDragbar={false}
+          tabSize={4}
+        />
+
         <div className="flex flex-col-reverse gap-3 sm:flex-row items-center justify-between">
           <span>
             Want to start over?&nbsp;
@@ -145,10 +169,10 @@ function HomePage(props) {
             onClick={() => {
               // Get title and content
               const title = document.querySelector('input[type="text"]').value;
-              const content = document.querySelector('textarea').value;
+              const content = value;
 
               dialogProps.current.title = title;
-              dialogProps.current.content = content;
+              dialogProps.current.content = value;
 
               // Create paste
               confirmCreatePaste(title, content);
