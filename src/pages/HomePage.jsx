@@ -46,8 +46,7 @@ function HomePage(props) {
       "T" + 
       currentdate.getHours() + ":" +
       currentdate.getMinutes() + ":" +
-      currentdate.getSeconds() + ":" +
-      currentdate.getMilliseconds();
+      currentdate.getSeconds();
       
 
     let uuid = ID.unique();
@@ -67,7 +66,7 @@ function HomePage(props) {
     promise.then(function (response) {
       //console.log(response);
       let link = window.location.origin + "/view/" + response.$id
-      copyShareLink(link);
+      // copyShareLink(link);
       window.location.href = link
     }, function (error) {
       console.log(error);
@@ -126,12 +125,12 @@ function HomePage(props) {
         )
       }
     <div className="w-full grow flex flex-col sm:justify-center sm:items-center">
-      <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-full sm:border-x p-3 flex flex-col gap-4">
+      <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-full sm:border-x p-3 flex flex-col gap-4" data-color-mode="light">
         <input 
           type="text" 
           className="w-full h-10 border-b bg-white px-3 py-3 outline-none text-xl font-bold" 
           placeholder="New paste..." 
-          maxLength={250} />
+          maxLength={100} />
         {/* Create non resizable text area */}
 
         <MDEditor 
