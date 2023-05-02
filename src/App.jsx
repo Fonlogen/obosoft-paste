@@ -28,8 +28,40 @@ client
 function App() {
   // const [userAccount, setUserAccount] = useState(false)
   const [userAccount, setUserAccount] = useState(false)
+  const [accountPrefs, setAccountPrefs] = useState({})
 
-  // const [theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState('dark')
+
+  const setNewTheme = (theme) => {
+    setTheme(theme);
+    if (userAccount) {
+      setAccountPrefs(accountPrefs.theme = theme)
+      const promise = account.updatePrefs(
+        accountPrefs
+      );
+
+      promise.then(function (response) {
+          console.log(response); // Success
+      }, function (error) {
+          console.log(error); // Failure
+      });
+    }
+  }
+
+  useEffect(() => {
+    const promise = account.getPrefs();
+
+    promise.then(function (response) {
+        // console.log(response); // Success
+        setAccountPrefs(response);
+        
+        if (response.theme) {
+          setTheme(response.theme)
+        }
+    }, function (error) {
+        console.log(error); // Failure
+    });
+  }, [])
 
   useEffect(() => {
     const promise = account.get();
@@ -43,16 +75,16 @@ function App() {
 
   return (
     <>
-      <Navbar/>
+      <Navbar setTheme={setNewTheme} theme={theme} />
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage account={userAccount} />} />
-          <Route path="dashboard" element={<AccountPage account={userAccount} setAccount={setUserAccount} />} />
-          <Route path="login" element={<Login account={userAccount} setAccount={setUserAccount} />} />
-          <Route path="register" element={<Register account={userAccount} setAccount={setUserAccount} />} />
-          <Route path='/view/:pasteID' element={<PastePage />}></Route>
+          <Route path="/" element={<HomePage account={userAccount} theme={theme} />} />
+          <Route path="dashboard" element={<AccountPage account={userAccount} setAccount={setUserAccount} theme={theme} />} />
+          <Route path="login" element={<Login account={userAccount} setAccount={setUserAccount} theme={theme} />} />
+          <Route path="register" element={<Register account={userAccount} setAccount={setUserAccount} theme={theme} />} />
+          <Route path='/view/:pasteID' element={<PastePage theme={theme} />}></Route>
           {/* <Route path='/edit/:pasteID' element={<EditPaste />}></Route> */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound theme={theme} />} />
         </Routes>
       </Router>
     </>
