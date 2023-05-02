@@ -36,11 +36,11 @@ function Paste(props) {
     <div className="w-full h-fit border-b rounded-lg p-2 flex flex-col overflow-x-hidden">
 			<div className="flex flex-col gap-4 sm:gap-0 sm:flex-row justify-between">
 				{/* Paste info */}
-				<div className="flex flex-col gap-1">
-					<span className="font-normal text-xl">
+				<div className="flex flex-col gap-1 grow">
+					<span className="font-normal text-xl w-full">
 						{nameTrimmed}
 					</span>
-					<span className="font-thin text-gray-700 h-fit overflow-x-hidden">
+					<span className="font-thin text-gray-700 h-fit overflow-x-hidden w-full">
 						{contentTrimmed}
 					</span>
 				</div>
