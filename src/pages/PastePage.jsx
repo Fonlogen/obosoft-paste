@@ -13,7 +13,7 @@ client
     .setProject('6441c6e7d6448edcc109') // Your project ID
 ;
 
-function PastePage() {
+function PastePage(props) {
   const { pasteID } = useParams()
 
   const [ document, setDocument ] = useState({
@@ -40,8 +40,8 @@ function PastePage() {
   }, [])
 
   return (
-    <div className="overflow-y-auto w-full grow flex flex-col sm:items-center h-full" data-color-mode="light">
-      <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-fit sm:border-x p-3 flex flex-col sm:flex-row sm:justify-between sm:gap-4 gap-2 border-b" data-color-mode="light">
+    <div className={"overflow-y-auto w-full grow flex flex-col sm:items-center h-full " + (props.theme === 'dark' ? 'bg-neutral-900 text-white border-zinc-700' : 'text-black')} data-color-mode={props.theme}>
+      <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-fit sm:border-x p-3 flex flex-col sm:flex-row sm:justify-between sm:gap-4 gap-2 border-b border-inherit" data-color-mode={props.theme}>
         <span className='flex text-2xl font-bold text-center items-center grow'>
           {
             document.name || "Loading..."
@@ -71,8 +71,8 @@ function PastePage() {
         </div>
       </div>
       <MarkdownPreview source={document.content}
-        className='border-x h-full grow w-full sm:w-11/12 md:w-10/12 lg:w-9/12 py-2 px-3'
-        />
+        className={'border-x h-full grow w-full sm:w-11/12 md:w-10/12 lg:w-9/12 py-2 px-3 ' + (props.theme === 'dark' ? 'darkbgeditor' : '')}
+        /> 
       {/* <div className='border-x h-full grow w-full sm:w-11/12 md:w-10/12 lg:w-9/12 py-2 px-3'>
         {
           document.content || "Loading..."

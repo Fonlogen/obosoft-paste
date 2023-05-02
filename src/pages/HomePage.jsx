@@ -124,16 +124,19 @@ function HomePage(props) {
           />
         )
       }
-    <div className="w-full grow flex flex-col sm:justify-center sm:items-center">
-      <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-full sm:border-x p-3 flex flex-col gap-4" data-color-mode="light">
+    <div 
+      className={"w-full grow flex flex-col sm:justify-center sm:items-center " + (props.theme === 'dark' ? "bg-neutral-900 text-white border-zinc-700" : "")}
+    >
+      <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 h-full sm:border-x p-3 flex flex-col gap-1 border-inherit" data-color-mode={props.theme}>
         <input 
           type="text" 
-          className="w-full h-10 border-b bg-white px-3 py-3 outline-none text-xl font-bold" 
+          className={"w-full h-10 border-b px-3 py-3 outline-none text-xl font-bold border-inherit " + (props.theme === 'dark' ? "bg-neutral-900" : "bg-white")} 
           placeholder="New paste..." 
           maxLength={100} />
         {/* Create non resizable text area */}
 
         <MDEditor 
+          className={props.theme === "dark" ? 'darkbgeditor' : ''}
         textareaProps={{
           placeholder: "Your paste..."
         }}
@@ -147,7 +150,7 @@ function HomePage(props) {
           tabSize={4}
         />
 
-        <div className="flex flex-col-reverse gap-3 sm:flex-row items-center justify-between">
+        <div className="flex flex-col-reverse gap-3 sm:flex-row items-center justify-between pt-2">
           <span>
             Want to start over?&nbsp;
             <a
@@ -162,7 +165,7 @@ function HomePage(props) {
             .
           </span>
           <input 
-            className="w-fit text-xl text-white bg-orange-400 hover:bg-orange-500 cursor-pointer rounded-xl p-2 px-10"
+            className={"w-fit text-xl text-white cursor-pointer rounded-xl p-2 px-10 " + (props.theme === "dark" ? 'bg-orange-600 hover:bg-orange-700' : 'bg-orange-500 hover:bg-orange-600')}
             type='button' 
             value="Create"
             onClick={() => {
