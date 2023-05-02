@@ -2,7 +2,7 @@
 import { Switch } from '@mui/material'
 import Logo from '../assets/obo-soft-orange.png'
 
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 
 function Navbar(props) {
 
