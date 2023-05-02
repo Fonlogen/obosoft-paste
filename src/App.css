@@ -83,7 +83,7 @@
 }
 
 .code-line {
-  @apply text-xl !important;
+  @apply text-lg !important;
 }
 
 .wmde-markdown-var, .w-md-editor, .w-md-editor-show-edit {
