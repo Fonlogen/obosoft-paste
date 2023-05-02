@@ -29,6 +29,8 @@ function App() {
   // const [userAccount, setUserAccount] = useState(false)
   const [userAccount, setUserAccount] = useState(false)
 
+  // const [theme, setTheme] = useState("light")
+
   useEffect(() => {
     const promise = account.get();
 
