@@ -56,6 +56,14 @@
   @apply flex flex-col gap-2;
 }
 
+.account-settings-dark {
+  @apply account-settings
+}
+
+.account-settings-dark > li:nth-child(even) {
+  @apply bg-zinc-900
+}
+
 .account-settings > li {
   @apply flex flex-row justify-between items-center gap-2 py-2 px-2;
 }
@@ -74,7 +82,7 @@
 
 .w-md-editor-text-pre > code,
 .w-md-editor-text-input, w-md-editor-area {
-  @apply text-xl !important;
+  @apply text-base !important;
 }
 
 .w-md-editor-text {
@@ -83,11 +91,19 @@
 }
 
 .code-line {
-  @apply text-lg !important;
+  @apply text-base !important;
 }
 
 .wmde-markdown-var, .w-md-editor, .w-md-editor-show-edit {
   box-shadow: none !important;
-  @apply py-0 !important;
-  @apply border-b !important;
+  @apply py-2 !important;
+  @apply border-b border-inherit rounded-none !important;
+}
+
+.darkbgeditor {
+  @apply bg-neutral-900 border-inherit !important;
+}
+
+.darkbgeditor .code-highlight {
+  @apply bg-neutral-800 !important;
 }
