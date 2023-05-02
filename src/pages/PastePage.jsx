@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom'
 import { Client, Databases, Query } from "appwrite";
 import { useState, useEffect } from 'react'
 
+import MarkdownPreview from "@uiw/react-markdown-preview";
+
 const client = new Client();
 
 const databases = new Databases(client);
@@ -68,11 +70,14 @@ function PastePage() {
           </div>
         </div>
       </div>
-      <div className='border-x h-full grow w-full sm:w-11/12 md:w-10/12 lg:w-9/12 py-2 px-3'>
+      <MarkdownPreview source={document.content}
+        className='border-x h-full grow w-full sm:w-11/12 md:w-10/12 lg:w-9/12 py-2 px-3'
+        />
+      {/* <div className='border-x h-full grow w-full sm:w-11/12 md:w-10/12 lg:w-9/12 py-2 px-3'>
         {
           document.content || "Loading..."
         }
-      </div>
+      </div> */}
     </div>
   )
 
