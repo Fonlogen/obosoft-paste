@@ -78,7 +78,8 @@ function AccountPage() {
     databases.listDocuments("6441d733de9b8ae7a88b", "6447132ebfc2884a8f60",
     
       [
-        Query.equal("owner", userAccount.$id)
+        Query.equal("owner", userAccount.$id),
+        Query.orderDesc("createdAt")
       ]
     );
 
