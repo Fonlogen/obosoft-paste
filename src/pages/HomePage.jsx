@@ -136,7 +136,7 @@ function HomePage(props) {
         {/* Create non resizable text area */}
 
         <MDEditor 
-          className={props.theme === "dark" ? 'darkbgeditor' : ''}
+          className={props.theme === "dark" ? '' : ''}
         textareaProps={{
           placeholder: "Your paste..."
         }}
