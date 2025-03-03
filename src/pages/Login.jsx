@@ -1,21 +1,21 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 
-import { Account, Client } from 'appwrite' 
+// import { Account, Client } from 'appwrite' 
 
 function Login(props) {
 
-	const client = new Client()
-    .setEndpoint('https://obosoft.it:8056/v1') // Your API Endpoint
-    .setProject('6441c6e7d6448edcc109');       // Your project ID
+	// const client = new Client()
+  //   .setEndpoint('https://fonlogen.it:8056/v1') // Your API Endpoint
+  //   .setProject('6441c6e7d6448edcc109');       // Your project ID
 
-	if (props.account !== false) {
-		//alert('You are already logged in! Account: ' + props.account.name + '')
-		window.location.href = '/dashboard'
-		return (
-			'Loading...'
-		)
-	}
+	// if (props.account !== false) {
+	// 	//alert('You are already logged in! Account: ' + props.account.name + '')
+	// 	window.location.href = '/dashboard'
+	// 	return (
+	// 		'Loading...'
+	// 	)
+	// }
 
   return (
     <div className={"w-full overflow-y-auto sm:overflow-y-none sm:grow flex flex-col sm:justify-center sm:items-center " + (props.theme === 'dark' ? 'bg-neutral-900 text-white border-zinc-700' : 'text-black')}>
@@ -42,21 +42,21 @@ function Login(props) {
 							className='text-inherit flex flex-row justify-between items-center hover:border-b border-stone-700 hover:text-orange-500 text-2xl font-light py-2'
 							onClick={() => {
 
-								const account = new Account(client)
+								// const account = new Account(client)
 
-								account.createEmailSession(
-									document.getElementById('email').value,
-									document.getElementById('password').value
-								).then((response) => {
-									props.setAccount(response);
+								// account.createEmailSession(
+								// 	document.getElementById('email').value,
+								// 	document.getElementById('password').value
+								// ).then((response) => {
+								// 	props.setAccount(response);
 									
-									setTimeout(() => {
-										window.location.href = '/dashboard'
-									}, 300)
+								// 	setTimeout(() => {
+								// 		window.location.href = '/dashboard'
+								// 	}, 300)
 									
-								}).catch((error) => {
-									alert(error.message)
-								})
+								// }).catch((error) => {
+								// 	alert(error.message)
+								// })
 
 							}}
 						> 

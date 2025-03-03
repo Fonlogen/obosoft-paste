@@ -14,16 +14,16 @@ import PastePage from './pages/PastePage'
 
 import { useState, useEffect } from 'react'
 
-import { Client, Account } from "appwrite";
+// import { Client, Account } from "appwrite";
 
-const client = new Client();
+// const client = new Client();
 
-const account = new Account(client);
+// const account = new Account(client);
 
-client
-    .setEndpoint('https://obosoft.it:8056/v1') // Your API Endpoint
-    .setProject('6441c6e7d6448edcc109') // Your project ID
-;
+// client
+//     .setEndpoint('https://fonlogen.it:8056/v1') // Your API Endpoint
+//     .setProject('6441c6e7d6448edcc109') // Your project ID
+// ;
 
 function App() {
   // const [userAccount, setUserAccount] = useState(false)
@@ -36,41 +36,41 @@ function App() {
     setTheme(theme);
     if (userAccount) {
       setAccountPrefs(accountPrefs.theme = theme)
-      const promise = account.updatePrefs(
-        accountPrefs
-      );
+      // const promise = account.updatePrefs(
+      //   accountPrefs
+      // );
 
-      promise.then(function (response) {
-          console.log(response); // Success
-      }, function (error) {
-          console.log(error); // Failure
-      });
+      // promise.then(function (response) {
+      //     console.log(response); // Success
+      // }, function (error) {
+      //     console.log(error); // Failure
+      // });
     }
   }
 
   useEffect(() => {
-    const promise = account.getPrefs();
+    // const promise = account.getPrefs();
 
-    promise.then(function (response) {
-        // console.log(response); // Success
-        setAccountPrefs(response);
+    // promise.then(function (response) {
+    //     // console.log(response); // Success
+    //     setAccountPrefs(response);
         
-        if (response.theme) {
-          setTheme(response.theme)
-        }
-    }, function (error) {
-        console.log(error); // Failure
-    });
+    //     if (response.theme) {
+    //       setTheme(response.theme)
+    //     }
+    // }, function (error) {
+    //     console.log(error); // Failure
+    // });
   }, [])
 
   useEffect(() => {
-    const promise = account.get();
+    // const promise = account.get();
 
-    promise.then(function (response) {
-      setUserAccount(response)
-    }, function () { // Error
-      setUserAccount(false)
-    });
+    // promise.then(function (response) {
+    //   setUserAccount(response)
+    // }, function () { // Error
+    //   setUserAccount(false)
+    // });
   }, [])
 
   return (

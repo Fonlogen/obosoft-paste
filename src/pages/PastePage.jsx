@@ -1,17 +1,17 @@
 import { useParams } from 'react-router-dom'
-import { Client, Databases, Query } from "appwrite";
+// import { Client, Databases, Query } from "appwrite";
 import { useState, useEffect } from 'react'
 
 import MarkdownPreview from "@uiw/react-markdown-preview";
 
-const client = new Client();
+// const client = new Client();
 
-const databases = new Databases(client);
+// const databases = new Databases(client);
 
-client
-    .setEndpoint('https://obosoft.it:8056/v1') // Your API Endpoint
-    .setProject('6441c6e7d6448edcc109') // Your project ID
-;
+// client
+//     .setEndpoint('https://fonlogen.it:8056/v1') // Your API Endpoint
+//     .setProject('6441c6e7d6448edcc109') // Your project ID
+// ;
 
 function PastePage(props) {
   const { pasteID } = useParams()
@@ -24,19 +24,21 @@ function PastePage(props) {
   });
 
   useEffect(() => {
-    const promise = // Paste collection
-      databases.listDocuments("6441d733de9b8ae7a88b", "6447132ebfc2884a8f60", [
-        Query.equal("$id", pasteID)
-      ]);
 
-    promise.then(function (response) {
-      // console.log(response); // Success
-      setDocument(response.documents[0]);
-    }, function (error) {
-      console.log(error); // Failure
-      setDocument(false)
-    });
-  
+    console.log(pasteID);
+    fetch('http://127.0.0.1:3000/api/v1/paste/getPaste/' + pasteID,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(response => {
+      response.json().then(data => {
+        console.log(data);
+        if (data && data !== null)
+          setDocument(data);
+      })
+    })
   }, [])
 
   return (

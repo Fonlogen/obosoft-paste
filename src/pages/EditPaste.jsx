@@ -9,7 +9,7 @@ const databases = new Databases(client);
 const account = new Account(client);
 
 client
-    .setEndpoint('https://obosoft.it:8056/v1') // Your API Endpoint
+    .setEndpoint('https://fonlogen.it:8056/v1') // Your API Endpoint
     .setProject('6441c6e7d6448edcc109') // Your project ID
 ;
 

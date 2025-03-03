@@ -50,7 +50,7 @@ function Register(props) {
 							onClick={() => {
 								const client = new Client()
 								client
-									.setEndpoint('https://obosoft.it:8056/v1')
+									.setEndpoint('https://fonlogen.it:8056/v1')
 									.setProject('6441c6e7d6448edcc109')
 								const account = new Account(client)
 								account.create(
