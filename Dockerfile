@@ -26,7 +26,7 @@ RUN npm install -g serve
 WORKDIR /app
  
 # Copia i file compilati dalla fase di build
-COPY --from=build-stage /app/build /app/dist
+#COPY --from=build-stage /app/build /app/dist
  
 # Espone la porta 3000
 EXPOSE 3004
