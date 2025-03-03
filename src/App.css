@@ -104,6 +104,6 @@
   @apply bg-neutral-900 border-inherit !important;
 }
 
-.darkbgeditor .code-highlight {
+.darkbgeditor > pre > .code-highlight {
   @apply bg-neutral-800 !important;
 }

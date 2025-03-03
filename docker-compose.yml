@@ -1,0 +1,25 @@
+services:
+  obosoftit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    pull_policy: build
+    env_file:
+      - stack.env
+    ports:
+      - '3004:3004'
+    networks:
+      - proxy_default
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.pasteobosoftit.rule=Host(`paste.obosoft.it`)'
+      - 'traefik.http.routers.pasteobosoftit.entrypoints=websecure'
+      - 'traefik.http.routers.pasteobosoftit.tls.certresolver=myresolver'
+      - 'traefik.http.services.pasteobosoftit.loadbalancer.server.port=3004'
+      - 'traefik.docker.network=proxy_default'
+      - "traefik.http.middlewares.pasteobosoftit.headers.sslredirect=true"
+    restart: always
+ 
+networks:
+  proxy_default:
+    external: true

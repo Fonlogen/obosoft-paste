@@ -63,12 +63,13 @@ function Paste(props) {
           <div className="flex flex-row sm:flex-col justify-between items-end sm:justify-center sm:gap-1">
             <div className="flex flex-row gap-2 items-start">
               {/* Edit paste */}
-              {/* <a 
-				
-							<span className="material-symbols-outlined text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-800 p-1 rounded-lg">
-								edit
-							</span>
-						</a> */}
+              <a
+                className="cursor-pointer" href={"/edit/" + pasteID.current}
+              >
+                <span className="material-symbols-outlined text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-800 p-1 rounded-lg">
+                  edit
+                </span>
+              </a>
 
               {/* Share paste */}
               <a
