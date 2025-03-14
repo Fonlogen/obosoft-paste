@@ -9,24 +9,12 @@ import AccountPage from './pages/AccountPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import PastePage from './pages/PastePage'
-import EditPaste from './pages/EditPaste' // Need to implement in future
+import EditPaste from './pages/EditPaste'
 
 
-import { useState, useEffect } from 'react'
-
-// import { Client, Account } from "appwrite";
-
-// const client = new Client();
-
-// const account = new Account(client);
-
-// client
-//     .setEndpoint('https://fonlogen.it:8056/v1') // Your API Endpoint
-//     .setProject('6441c6e7d6448edcc109') // Your project ID
-// ;
+import { useState } from 'react'
 
 function App() {
-  // const [userAccount, setUserAccount] = useState(false)
   const [userAccount, setUserAccount] = useState(false)
   const [accountPrefs, setAccountPrefs] = useState({})
 
@@ -36,42 +24,8 @@ function App() {
     setTheme(theme);
     if (userAccount) {
       setAccountPrefs(accountPrefs.theme = theme)
-      // const promise = account.updatePrefs(
-      //   accountPrefs
-      // );
-
-      // promise.then(function (response) {
-      //     console.log(response); // Success
-      // }, function (error) {
-      //     console.log(error); // Failure
-      // });
     }
   }
-
-  useEffect(() => {
-    // const promise = account.getPrefs();
-
-    // promise.then(function (response) {
-    //     // console.log(response); // Success
-    //     setAccountPrefs(response);
-        
-    //     if (response.theme) {
-    //       setTheme(response.theme)
-    //     }
-    // }, function (error) {
-    //     console.log(error); // Failure
-    // });
-  }, [])
-
-  useEffect(() => {
-    // const promise = account.get();
-
-    // promise.then(function (response) {
-    //   setUserAccount(response)
-    // }, function () { // Error
-    //   setUserAccount(false)
-    // });
-  }, [])
 
   return (
     <>
