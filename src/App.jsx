@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
 
-// Components
 import Navbar from './components/Navbar'
 import NotFound from './pages/NotFound'
 import HomePage from './pages/HomePage'
@@ -10,7 +9,6 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import PastePage from './pages/PastePage'
 import EditPaste from './pages/EditPaste'
-
 
 import { useState } from 'react'
 
