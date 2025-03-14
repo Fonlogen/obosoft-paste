@@ -1,23 +1,6 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/prop-types */
-
 import { useEffect, useState, useRef } from "react";
 import Paste from "../components/Paste";
 import Dialog from "../components/Dialog";
-
-// import { Account, Client, Databases, Query } from "appwrite";
-
-// const client = new Client();
-
-// const account = new Account(client);
-
-// client
-//   .setEndpoint("https://fonlogen.it:8056/v1") // Your API Endpoint
-//   .setProject("6441c6e7d6448edcc109"); // Your project ID
-
-// const databases = new Databases(client);
 
 function AccountPage(props) {
   const [userAccount, setUserAccount] = useState(false);
@@ -28,68 +11,15 @@ function AccountPage(props) {
   const [showDialog, setShowDialog] = useState(false);
   const pasteToDelete = useRef(0);
 
-  // const deletePaste = () => {
-  //   const promise = databases.deleteDocument(
-  //     "6441d733de9b8ae7a88b",
-  //     "6447132ebfc2884a8f60",
-  //     pasteToDelete.current
-  //   );
-
-  //   promise.then(
-  //     function (response) {
-  //       window.location.reload();
-  //     },
-  //     function (error) {
-  //       console.log(error); // Failure
-  //     }
-  //   );
-  // };
-
   const deleteDialog = (paste_id) => {
     pasteToDelete.current = paste_id;
     console.log(pasteToDelete.current);
     setShowDialog(true);
   };
 
-  useEffect(() => {
-    // const promise = account.get();
-
-    // promise.then(
-    //   function (response) {
-    //     if (!response) {
-    //       window.location.href = "/login";
-    //       return;
-    //     }
-
-    //     response.registration = response.registration
-    //       .split("T")[0]
-    //       .split("-")
-    //       .reverse()
-    //       .join("/");
-
-    //     if (response.prefs) {
-    //       setAccountPrefs(response.prefs);
-    //     }
-
-    //     setUserAccount(response);
-    //   },
-    //   function () {
-    //     // Error
-    //     window.location.href = "/login";
-    //   }
-    // );
-  }, []);
-
   const [pastes, setPastes] = useState(null);
 
   useEffect(() => {
-    // const promise = databases.listDocuments(
-    //   "6441d733de9b8ae7a88b",
-    //   "6447132ebfc2884a8f60",
-
-    //   [Query.equal("owner", userAccount.$id), Query.orderDesc("createdAt")]
-    // );
-
     fetch('http://127.0.0.1:3000/api/v1/paste/getPasteList/fonlogen', {
       method: 'GET',
       headers: {
@@ -106,21 +36,6 @@ function AccountPage(props) {
   useEffect(() => {
     console.log(pastes);
   }, [pastes]);
-
-  // const logout = () => {
-  //   const promise = account.deleteSession("current");
-
-  //   promise.then(
-  //     function (response) {
-  //       setTimeout(() => {
-  //         window.location.href = "/";
-  //       }, 300);
-  //     },
-  //     function () {
-  //       // Error
-  //     }
-  //   );
-  // };
 
   return (
     <>
@@ -221,7 +136,6 @@ function AccountPage(props) {
                 </div>
               ) : (
                 pastes.map((paste, idx) => {
-                  // if (paste.owner !== userAccount.$id) return null
                   return (
                     <Paste
                       key={paste._id}
